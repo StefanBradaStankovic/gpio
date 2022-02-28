@@ -16,6 +16,7 @@ var gpioNumber7 = [...]bool{false, false, true, true, true, true, false, false}
 var gpioNumber8 = [...]bool{true, true, true, true, true, true, true, true}
 var gpioNumber9 = [...]bool{false, true, true, true, true, true, true, true}
 
+// Draw an ordinal number from 0 to 9
 func displayDrawNumber(number int) {
 	pinsResetAll()
 	switch number {
@@ -50,7 +51,7 @@ func displayDrawNumber(number int) {
 //
 //
 
-/* func displayCheckSegments() {
+func displayCheckSegments() {
 	diodeFlash(Pin01, 100, 400)
 	diodeFlash(Pin02, 100, 400)
 	diodeFlash(Pin04, 100, 400)
@@ -59,7 +60,7 @@ func displayDrawNumber(number int) {
 	diodeFlash(Pin07, 100, 400)
 	diodeFlash(Pin09, 100, 400)
 	diodeFlash(Pin10, 100, 400)
-} */
+}
 
 // Draw a running circle animation
 func displayCircleRound(speed int) {
@@ -89,10 +90,25 @@ func displayCircleFlash(speed int) {
 	time.Sleep(time.Duration(speed) * time.Millisecond)
 }
 
+// Draw a full circle segment by segment
+func displayLoading(speed int) {
+	diodeOn(Pin01)
+	time.Sleep(time.Duration(speed) * time.Millisecond)
+	diodeOn(Pin02)
+	time.Sleep(time.Duration(speed) * time.Millisecond)
+	diodeOn(Pin04)
+	time.Sleep(time.Duration(speed) * time.Millisecond)
+	diodeOn(Pin06)
+	time.Sleep(time.Duration(speed) * time.Millisecond)
+	diodeOn(Pin07)
+	time.Sleep(time.Duration(speed) * time.Millisecond)
+	diodeOn(Pin09)
+	time.Sleep(time.Duration(speed) * time.Millisecond)
+}
+
 // Draw a startup animation
 func displayStartupAnimation() {
-	displayCircleRound(100)
-	displayCircleRound(100)
+	displayLoading(150)
 	displayCircleFlash(250)
 	displayCircleFlash(250)
 	displayCircleFlash(1500)

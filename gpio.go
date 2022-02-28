@@ -10,7 +10,7 @@ func main() {
 	displayStartupAnimation()
 	for i := 0; i < 10; i++ {
 		displayDrawNumber(i)
-		time.Sleep(1 * time.Second)
+		time.Sleep(333 * time.Millisecond)
 	}
 	pinsResetAll()
 }

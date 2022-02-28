@@ -24,6 +24,7 @@ const (
 	Pin10 = "12"
 )
 
+// Flash a LED by setting a pin to HIGH for timeOn amount of milliseconds with a latency of timeOff milliseconds
 func diodeFlash(inputPin string, timeOn time.Duration, timeOff time.Duration) {
 	// Load all the drivers:
 	if _, err := host.Init(); err != nil {
@@ -52,6 +53,7 @@ func diodeFlash(inputPin string, timeOn time.Duration, timeOff time.Duration) {
 	}
 }
 
+// Turn on a number of LEDs permanently by setting the corresponding pins to HIGH
 func diodeOnCluster(inputPins [8]string, pinState [8]bool) {
 	// Load all the drivers:
 	if _, err := host.Init(); err != nil {
@@ -65,7 +67,8 @@ func diodeOnCluster(inputPins [8]string, pinState [8]bool) {
 	}
 }
 
-/* func diodeOffCluster(inputPins [8]string, pinState [8]bool) {
+// Turn off a number of LEDs permanently by setting the corresponding pins to LOW
+func diodeOffCluster(inputPins [8]string, pinState [8]bool) {
 	// Load all the drivers:
 	if _, err := host.Init(); err != nil {
 		log.Fatal(err)
@@ -76,8 +79,9 @@ func diodeOnCluster(inputPins [8]string, pinState [8]bool) {
 			diodeOff(inputPins[i])
 		}
 	}
-} */
+}
 
+// Turn on an LED permanently by setting the pin to HIGH
 func diodeOn(inputPin string) {
 	// Load all the drivers:
 	if _, err := host.Init(); err != nil {
@@ -100,6 +104,7 @@ func diodeOn(inputPin string) {
 	}
 }
 
+// Turn off an LED permanently by setting the pin to LOW
 func diodeOff(inputPin string) {
 	// Load all the drivers:
 	if _, err := host.Init(); err != nil {
@@ -118,6 +123,7 @@ func diodeOff(inputPin string) {
 	}
 }
 
+// RESET ALL PINS BY SETTING THEM TO LOW
 func pinsResetAll() {
 	diodeOff(Pin01)
 	diodeOff(Pin02)
