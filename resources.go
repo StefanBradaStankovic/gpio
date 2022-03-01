@@ -125,12 +125,20 @@ func diodeOff(inputPin string) {
 
 // RESET ALL PINS BY SETTING THEM TO LOW
 func pinsResetAll() {
-	diodeOff(Pin01)
-	diodeOff(Pin02)
-	diodeOff(Pin04)
-	diodeOff(Pin05)
-	diodeOff(Pin06)
-	diodeOff(Pin07)
-	diodeOff(Pin09)
-	diodeOff(Pin10)
+	for i := 0; i < len(gpioPins); i++ {
+		diodeOff(gpioPins[i])
+	}
+
+	// OLD CODE 01.03.2022.
+	//
+	// Changed the code to be more flexible
+	//
+	// diodeOff(Pin01)
+	// diodeOff(Pin02)
+	// diodeOff(Pin04)
+	// diodeOff(Pin05)
+	// diodeOff(Pin06)
+	// diodeOff(Pin07)
+	// diodeOff(Pin09)
+	// diodeOff(Pin10)
 }

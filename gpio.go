@@ -8,9 +8,9 @@ func main() {
 	// displayCheckSegments()
 	// time.Sleep(2 * time.Second)
 	displayStartupAnimation()
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 16; i++ {
 		displayDrawNumber(i)
-		time.Sleep(333 * time.Millisecond)
+		time.Sleep(666 * time.Millisecond)
 	}
 	pinsResetAll()
 }
