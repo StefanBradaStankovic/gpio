@@ -1,16 +1,20 @@
 package main
 
-import "time"
+import (
+	"time"
+)
 
 func main() {
-	pinsResetAll()
 
+	pinsResetAll(gpioPins[:])
 	// displayCheckSegments()
 	// time.Sleep(2 * time.Second)
-	displayStartupAnimation()
+
 	for i := 0; i < 16; i++ {
-		displayDrawNumber(i)
+		displayDrawNumber(gpioPins, i)
 		time.Sleep(666 * time.Millisecond)
 	}
-	pinsResetAll()
+
+	pinsResetAll(gpioPins[:])
+
 }
