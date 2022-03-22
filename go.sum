@@ -1,9 +1,6 @@
-github.com/StefanBradaStankovic/dispcon v0.0.0-20220302094734-776ac66944d8 h1:jAqaQXBgnrg3QGfZqscoB4tv7GAy+p7t+2t0kQa4dHo=
-github.com/StefanBradaStankovic/dispcon v0.0.0-20220302094734-776ac66944d8/go.mod h1:XAwZyeQ4doXBO0hl0I9U3H52yNERTgD8h5bNnG+Ldi8=
-github.com/StefanBradaStankovic/dispcon v0.0.0-20220302103627-a0b37b41d704 h1:CjawJ5mbTXV1hnRsGk6dplHJ7HCn2be5bzIE4EkzmrY=
-github.com/StefanBradaStankovic/dispcon v0.0.0-20220302103627-a0b37b41d704/go.mod h1:XAwZyeQ4doXBO0hl0I9U3H52yNERTgD8h5bNnG+Ldi8=
-github.com/StefanBradaStankovic/dispcon v0.0.0-20220302120555-e3c5bf634663 h1:fgqfLgzjp2lsewcWYtMxDqqFTSiCQtflSOh+91D7P64=
-github.com/StefanBradaStankovic/dispcon v0.0.0-20220302120555-e3c5bf634663/go.mod h1:XAwZyeQ4doXBO0hl0I9U3H52yNERTgD8h5bNnG+Ldi8=
+github.com/StefanBradaStankovic/dispcon v1.0.2 h1:2Wp3Q2aOxKOlpLkjR+Ca97/gOpLYxoJVdAbANq/YTug=
+github.com/StefanBradaStankovic/dispcon v1.0.2/go.mod h1:jZTVhhmBpCoxYrYy1z5UJpD5w9A3vdQsTJgxxybWj0Y=
+github.com/jonboulle/clockwork v0.2.2 h1:UOGuzwb1PwsrDAObMuhUnj0p5ULPj8V/xJ7Kx9qUBdQ=
 github.com/jonboulle/clockwork v0.2.2/go.mod h1:Pkfl5aHPm1nk2H9h0bjmnJD/BcgbGXUBGnn1kMkgxc8=
 periph.io/x/conn/v3 v3.6.10 h1:gwU4ssmZkq1D/uz8hU91i/COo2c9DrRaS4PJZBbCd+c=
 periph.io/x/conn/v3 v3.6.10/go.mod h1:UqWNaPMosWmNCwtufoTSTTYhB2wXWsMRAJyo1PlxO4Q=

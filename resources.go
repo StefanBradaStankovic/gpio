@@ -4,129 +4,82 @@ import (
 	"log"
 	"time"
 
-	"periph.io/x/conn/v3/gpio"
-	"periph.io/x/conn/v3/gpio/gpioreg"
-	"periph.io/x/host/v3"
+	"github.com/StefanBradaStankovic/dispcon"
 )
 
-var gpioPins = [...]string{Pin01, Pin02, Pin04, Pin05, Pin06, Pin07, Pin09, Pin10}
+var allPins = [...]string{Pin01, Pin02, Pin03, Pin04, Pin05, Pin06, Pin07, Pin08, Pin09, Pin10, Pin11, Pin12}
+var gpioPins = [...]string{Pin01, Pin02, Pin03, Pin04, Pin05, Pin07, Pin10, Pin11}
+var sellectorPins = [...]string{Pin06, Pin09, Pin08, Pin12}
+
+var MainDone = 0
+
+// var circlePins = [...]string{Pin01, Pin02, Pin04, Pin06, Pin07, Pin09}
 
 const (
 	Pin01 = "6"
 	Pin02 = "13"
-	// Pin03 = "GROUND"
-	Pin04 = "19"
-	Pin05 = "26"
-	Pin06 = "21"
-	Pin07 = "20"
-	// Pin08 = "GROUND"
-	Pin09 = "16"
-	Pin10 = "12"
+	Pin03 = "19"
+	Pin04 = "26"
+	Pin05 = "5"
+	Pin06 = "24" // GND
+	Pin07 = "16"
+	Pin08 = "18" // GND
+	Pin09 = "23" // GND
+	Pin10 = "20"
+	Pin11 = "21"
+	Pin12 = "22" // GND
 )
 
-// Flash a LED by setting a pin to HIGH for timeOn amount of milliseconds with a latency of timeOff milliseconds
-func diodeFlash(inputPin string, timeOn time.Duration, timeOff time.Duration) {
-	// Load all the drivers:
-	if _, err := host.Init(); err != nil {
-		log.Fatal(err)
-	}
+var Digits = []int{0, 0, 0, 0}
 
-	// Open pin for communication
-	pin := gpioreg.ByName(inputPin)
-	if pin == nil {
-		log.Fatal("Failed to open GPIO pin")
-	}
+func DisplayDrawNumberMultiple(sellectedPins []string, sellectedDigits [][]bool) {
 
-	// Set pin to LOW
-	if err := pin.Out(gpio.Low); err != nil {
-		log.Fatal(err)
-	}
+	dispcon.PinsResetLow(gpioPins[:])
+	dispcon.PinsResetIn(sellectorPins[:])
 
-	// fmt.Printf("Flashing pin %s\n", inputPin)
-	time.Sleep(timeOff * time.Millisecond)
-	if err := pin.Out(gpio.High); err != nil {
-		log.Fatal(err)
-	}
-	time.Sleep(timeOn * time.Millisecond)
-	if err := pin.Out(gpio.Low); err != nil {
-		log.Fatal(err)
-	}
-}
+	for MainDone != 1 {
 
-// Turn on a number of LEDs permanently by setting the corresponding pins to HIGH
-func diodeOnCluster(inputPins [8]string, pinState [8]bool) {
-	// Load all the drivers:
-	if _, err := host.Init(); err != nil {
-		log.Fatal(err)
-	}
-
-	for i := 0; i < 8; i++ {
-		if pinState[i] {
-			diodeOn(inputPins[i])
+		for i := 0; i < 4; i++ {
+			dispcon.DiodeOff(sellectorPins[i])
+			dispcon.DisplayDrawNumber(sellectedPins, sellectedDigits, Digits[i])
+			time.Sleep(1 * time.Millisecond)
+			dispcon.DiodeIn(sellectorPins[i])
 		}
 	}
 }
 
-// Turn off a number of LEDs permanently by setting the corresponding pins to LOW
-func diodeOffCluster(inputPins [8]string, pinState [8]bool) {
-	// Load all the drivers:
-	if _, err := host.Init(); err != nil {
-		log.Fatal(err)
-	}
+func SplitDigits(number int) {
 
-	for i := 0; i < 8; i++ {
-		if pinState[i] {
-			diodeOff(inputPins[i])
+	if number >= 0 && number <= 9999 {
+
+		if number < 10 {
+			Digits[3] = number
+			Digits[2] = 0
+			Digits[1] = 0
+			Digits[0] = 0
 		}
-	}
-}
 
-// Turn on an LED permanently by setting the pin to HIGH
-func diodeOn(inputPin string) {
-	// Load all the drivers:
-	if _, err := host.Init(); err != nil {
-		log.Fatal(err)
-	}
+		if number >= 10 && number < 100 {
+			Digits[3] = number % 10
+			Digits[2] = number / 10
+			Digits[1] = 0
+			Digits[0] = 0
+		}
 
-	// Open pin for communication
-	pin := gpioreg.ByName(inputPin)
-	if pin == nil {
-		log.Fatal("Failed to open GPIO pin")
-	}
+		if number >= 100 && number < 1000 {
+			Digits[3] = number % 10
+			Digits[2] = (number / 10) % 10
+			Digits[1] = number / 100
+			Digits[0] = 0
+		}
 
-	// Set pin to LOW
-	if err := pin.Out(gpio.Low); err != nil {
-		log.Fatal(err)
+		if number >= 1000 {
+			Digits[3] = number % 10
+			Digits[2] = (number / 10) % 10
+			Digits[1] = (number / 100) % 10
+			Digits[0] = number / 1000
+		}
+	} else {
+		log.Println("Number out of bounds !!!")
 	}
-
-	if err := pin.Out(gpio.High); err != nil {
-		log.Fatal(err)
-	}
-}
-
-// Turn off an LED permanently by setting the pin to LOW
-func diodeOff(inputPin string) {
-	// Load all the drivers:
-	if _, err := host.Init(); err != nil {
-		log.Fatal(err)
-	}
-
-	// Open pin for communication
-	pin := gpioreg.ByName(inputPin)
-	if pin == nil {
-		log.Fatal("Failed to open GPIO pin")
-	}
-
-	// Set pin to LOW
-	if err := pin.Out(gpio.Low); err != nil {
-		log.Fatal(err)
-	}
-}
-
-// RESET ALL PINS BY SETTING THEM TO LOW
-func pinsResetAll(sellectedPins []string) {
-	for i := 0; i < len(sellectedPins); i++ {
-		diodeOff(sellectedPins[i])
-	}
-
 }

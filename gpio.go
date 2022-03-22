@@ -2,19 +2,28 @@ package main
 
 import (
 	"time"
+
+	"github.com/StefanBradaStankovic/dispcon"
 )
 
 func main() {
 
-	pinsResetAll(gpioPins[:])
-	// displayCheckSegments()
-	// time.Sleep(2 * time.Second)
+	dispcon.PinsResetIn(allPins[:])
+	time.Sleep(1 * time.Second)
 
-	for i := 0; i < 16; i++ {
-		displayDrawNumber(gpioPins, i)
-		time.Sleep(666 * time.Millisecond)
+	go DisplayDrawNumberMultiple(gpioPins[:], gpioDigitQuad)
+	time.Sleep(2 * time.Second)
+
+	for i := 0; i < 10000; i += 9 {
+
+		SplitDigits(i)
+		time.Sleep(100 * time.Millisecond)
 	}
 
-	pinsResetAll(gpioPins[:])
+	time.Sleep(5 * time.Second)
 
+	MainDone = 1
+
+	dispcon.PinsResetLow(allPins[:])
+	dispcon.PinsResetIn(allPins[:])
 }
