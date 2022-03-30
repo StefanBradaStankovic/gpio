@@ -1,5 +1,5 @@
-github.com/StefanBradaStankovic/dispcon v1.0.2 h1:2Wp3Q2aOxKOlpLkjR+Ca97/gOpLYxoJVdAbANq/YTug=
-github.com/StefanBradaStankovic/dispcon v1.0.2/go.mod h1:jZTVhhmBpCoxYrYy1z5UJpD5w9A3vdQsTJgxxybWj0Y=
+github.com/StefanBradaStankovic/dispcon v1.2.0 h1:JUZf5XZTPjSx3RnyY4dJPbLo61lDZtbKMxCbUkwPJRc=
+github.com/StefanBradaStankovic/dispcon v1.2.0/go.mod h1:jZTVhhmBpCoxYrYy1z5UJpD5w9A3vdQsTJgxxybWj0Y=
 github.com/jonboulle/clockwork v0.2.2 h1:UOGuzwb1PwsrDAObMuhUnj0p5ULPj8V/xJ7Kx9qUBdQ=
 github.com/jonboulle/clockwork v0.2.2/go.mod h1:Pkfl5aHPm1nk2H9h0bjmnJD/BcgbGXUBGnn1kMkgxc8=
 periph.io/x/conn/v3 v3.6.10 h1:gwU4ssmZkq1D/uz8hU91i/COo2c9DrRaS4PJZBbCd+c=

@@ -11,18 +11,21 @@ func main() {
 	dispcon.PinsResetIn(allPins[:])
 	time.Sleep(1 * time.Second)
 
-	go DisplayDrawNumberMultiple(gpioPins[:], gpioDigitQuad)
+	go dispcon.DisplayDrawNumberMultiple(gpioPins[:], sellectorPins[:], gpioDigitQuad, &digits, &mainDone)
 	time.Sleep(2 * time.Second)
 
 	for i := 0; i < 10000; i += 9 {
 
-		SplitDigits(i)
+		digits = dispcon.SplitDigits(i)
 		time.Sleep(100 * time.Millisecond)
+		if i == 1500 {
+			i = 0
+		}
 	}
 
 	time.Sleep(5 * time.Second)
 
-	MainDone = 1
+	mainDone = 1
 
 	dispcon.PinsResetLow(allPins[:])
 	dispcon.PinsResetIn(allPins[:])
