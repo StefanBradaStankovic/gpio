@@ -8,15 +8,15 @@ import (
 
 func main() {
 
-	dispcon.PinsResetIn(allPins[:])
+	dispcon.DiodeArrayIn(allPins[:])
 	time.Sleep(1 * time.Second)
 
-	go dispcon.DisplayDrawNumberMultiple(gpioPins[:], sellectorPins[:], gpioDigitQuad, &digits, &mainDone)
+	go dispcon.DisplayMultipleDigits(displaySegmentPins[:], displayGroundPins[:], diodeState_QuadDigit, &digits, &mainFunctionIsFinished)
 	time.Sleep(2 * time.Second)
 
-	for i := 0; i < 10000; i += 9 {
+	for i := 0; i < 10000; i += 29 {
 
-		digits = dispcon.SplitDigits(i)
+		digits = splitDigits(i)
 		time.Sleep(100 * time.Millisecond)
 		if i == 1500 {
 			i = 0
@@ -25,8 +25,7 @@ func main() {
 
 	time.Sleep(5 * time.Second)
 
-	mainDone = 1
+	mainFunctionIsFinished = 1
 
-	dispcon.PinsResetLow(allPins[:])
-	dispcon.PinsResetIn(allPins[:])
+	dispcon.DiodeArrayIn(allPins[:])
 }
